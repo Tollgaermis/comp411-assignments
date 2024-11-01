@@ -143,9 +143,8 @@ class BCELoss(CompNode):
 
     def forward(self):
         # implement the forward pass here
+        self.value = -(self.y.value)*(np.log(self.p.value)) - (1-self.y.value)*(np.log(1-self.p.value))
 
     def backward(self):
         # implement the backward pass here
-    
-
-
+        self.p.addgrad((self.p.value - self.y.value) / (self.p.value * (1-self.p.value)) )
